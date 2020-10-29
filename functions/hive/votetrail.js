@@ -13,7 +13,7 @@ function scanvotes(voteops){
   for(var i=0;i<acclist.accounts.length;i++){
     if(acclist.accounts[i][1] === 0){
       let removedaccount = acclist.accounts.splice(i, 1);
-      log('log', 'scanvotes', `${removedaccount} Out of votes \n Removed from list`)
+      log('log', 'scanvotes', `${removedaccount[0]} Out of votes \n Removed from list`)
       return;
     }
     if(acclist.accounts[i][0] === voteops[1].voter){
