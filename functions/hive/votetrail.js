@@ -17,9 +17,9 @@ function scanvotes(voteops){
       return;
     }
     if(acclist.accounts[i][0] === voteops[1].voter){
-      voteops[1].voter = config.trailaccount;
+      voteops[1].voter = config.hiveacc;
       if(acclist.accounts[i][1] !== 'inf') acclist.accounts[i][1]--;
-      pushtx(voteops);
+      pushtx(voteops, false);
       return;
     }
   }

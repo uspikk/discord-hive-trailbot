@@ -2,7 +2,9 @@ const bootdiscord = require('./functions/discord/discord.js').boot;
 const bootswitches = require('./config.js').bootswitches
 const blockscanner = require('./functions/hive/blockscanner.js').startscanner
 const adduser = require('./functions/hive/votetrail.js').adduser
+const mongoboot = require('./functions/mongo/mongo.js').connect
 
+mongoboot();
 
 function bootscript(){
   if(bootswitches.startblockscanner)blockscanner();

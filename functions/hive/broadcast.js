@@ -8,8 +8,8 @@ function broadcastqueue(){
   this.txs = [];
 }
 
-function addtoqueue(op){
-  let pushop = [op, {errors:0}]
+function addtoqueue(op, key){
+  let pushop = [op, {errors:0, 'active':key}]
   queue.txs.push(pushop);
   return;
 }
@@ -27,14 +27,15 @@ function adderrorqueue(tx){
 
 function broadcast(){
   if(queue.txs.length === 0) return;
+  let key = config.postingwif
+  if(queue.txs[0][1].active === true) key = config.activewif
   let transaction = queue.txs.splice(0, 1);
   transaction = transaction[0]; 
   hive.broadcast.send({
     extensions: [],
     operations: [transaction[0]]},
-  [config.trailwif], (err, result) => {
+  [key], (err, result) => {
     if(err){
-      console.log(err)
       log('err', `broadcast:${transaction[1].errors}`, JSON.stringify(err));
       adderrorqueue(transaction);
       return;
@@ -44,7 +45,6 @@ function broadcast(){
       return;
     }
   });
-
 }
 
 module.exports = {

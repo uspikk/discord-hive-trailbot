@@ -2,13 +2,16 @@ let config = {
   'discordtoken':'',
   'discordserver':'',
   'logchannel':'',
-  'trailaccount':'',
-  'trailwif':''
+  'hiveacc':'',
+  'postingwif':'',
+  'activewif':'',
+  'dbname':'',
+  'disocrdownerid':''
 }
 
 let bootswitches = {
-  'startblockscanner':true,
-  'bootinftrailaccs':['nrg']
+  'startblockscanner':false,
+  'bootinftrailaccs':[]
 }
 
 module.exports = {
