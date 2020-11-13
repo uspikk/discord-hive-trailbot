@@ -5,13 +5,12 @@ let config = {
   'hiveacc':'',
   'postingwif':'',
   'activewif':'',
-  'dbname':'',
-  'disocrdownerid':''
+  'dbname':''
 }
 
 let bootswitches = {
-  'startblockscanner':false,
-  'bootinftrailaccs':[]
+  'startblockscanner':true,
+  'bootinftrailaccs':['nrg']
 }
 
 module.exports = {

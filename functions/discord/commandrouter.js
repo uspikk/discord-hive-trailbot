@@ -15,7 +15,7 @@ const getallfromcollection = require('../mongo/mongo.js').getallfromcollection
 const config = require('../../config.js').config
 
 function commandrouter(msg){
-  if(msg.author.id !== config.disocrdownerid){
+  if(msg.channel.id !== config.logchannel){
     return
   }
   const args = msg.content.trim().split(/ +/g);
