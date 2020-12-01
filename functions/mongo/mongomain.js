@@ -193,9 +193,8 @@ mongodb.prototype.addclose = function(coin, id, exitprice){
     if(err){
       log('err', 'mongodb.addclose', 'db.listcollections returned error');
       return;}
-
-        if(!collinfo){
-      log('err', 'mongodb.addclose', 'Sellise nimega coini ei leidnud');
+      if(!collinfo){
+       log('err', 'mongodb.addclose', 'Sellise nimega coini ei leidnud');
       return;
     }
     if(collinfo){

@@ -1,7 +1,7 @@
 let hive = require('@hiveio/hive-js');
 let broadcast = require('./broadcast.js').broadcast;
 
-const scanner = new scannerhead();
+var scanner = new scannerhead();
 
 function scannerhead(){
   this.running = false;
@@ -57,12 +57,19 @@ function getblock(){
 }
 
 function startscanner(){
+  scanner = new scannerhead();
   scanner.running = true;
   updateheadblock();
   return;
 }
 
+function stopscanner(){
+  scanner = new scannerhead();
+}
+
+
 module.exports = {
   startscanner,
-  addblock
+  addblock,
+  stopscanner
 }

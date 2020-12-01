@@ -1,3 +1,5 @@
+const enginevoter = require('./enginetrailsystem.js').recievevotes
+
 
 function blockfilter(ops){
   const votetrail = require('./votetrail.js').scanvotes
@@ -5,6 +7,10 @@ function blockfilter(ops){
   for(var i=0;i<ops.length;i++){
     for(var j=0;j<ops[i].operations.length;j++){
       let op = ops[i].operations[j];
+      if(op[0] === 'comment'){
+        enginevoter(op);
+        continue;
+      }
       if(op[0]==='vote'){
         votetrail(op);
       }

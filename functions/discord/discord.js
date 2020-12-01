@@ -29,11 +29,21 @@ function reply(ogmsg, msg){
 
 
 function log(type, where, msg){
+  var nextstring = false
   if(type === 'log')type = '👨‍💻'
   if(type === 'err')type = '❌'
-  type = type + where
+  const typewhere = type + where
+  if(msg.length > 1990){
+    nextstring = msg.substring(1990)
+    msg = msg.slice(0, 1990);
+  }
   msg='```'+msg+'```'
-  client.channels.cache.get(config.logchannel).send(type).then(client.channels.cache.get(config.logchannel).send(msg))
+  client.channels.cache.get(config.logchannel).send(typewhere).then(client.channels.cache.get(config.logchannel).send(msg)).then(function(){
+    if(nextstring){
+      log(type, where, nextstring)
+      return;
+    }
+  })
 }
 
 

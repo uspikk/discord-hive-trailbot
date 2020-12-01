@@ -13,6 +13,12 @@ const addentry = require('../mongo/mongo.js').addentry
 const addclose = require('../mongo/mongo.js').addclose
 const getallfromcollection = require('../mongo/mongo.js').getallfromcollection
 const config = require('../../config.js').config
+const starthivescanner = require('../hive/blockscanner.js').startscanner;
+const startblurtscanner = require('../blurt/blurtmain.js').startvoter;
+const stophivescanner = require('../hive/blockscanner.js').stopscanner;
+const stopblurtscanner = require('../blurt/blurtmain.js').stopvoter
+const addvotes = require('../hive/enginetrailsystem.js').addvotes
+const votestatus = require('../hive/enginetrailsystem.js').votestatus
 
 function commandrouter(msg){
   if(msg.channel.id !== config.logchannel){
@@ -64,7 +70,28 @@ function commandrouter(msg){
       return;
     }
   }
-  if(command === '!powerup'){}
+  if(command === '!startscanners'){
+    starthivescanner();
+    startblurtscanner();
+    return;
+  }
+  if(command === '!stopscanners'){
+    stophivescanner();
+    stopblurtscanner();
+    return;
+
+  }
+  if(command === '!addvotes'){
+    if(args[0] > 0){
+      addvotes(args[0]);
+      return;
+    }
+  }
+  if(command === '!votestatus'){
+    votestatus();
+    return;
+  }
+  /*if(command === '!powerup'){}
   if(command === '!listcoin'){
     listcoin();
     return;
@@ -146,7 +173,7 @@ function commandrouter(msg){
       reply(msg, messages.commandnihu);
       return;
     }
-  }
+  }*/
 }
 
 
