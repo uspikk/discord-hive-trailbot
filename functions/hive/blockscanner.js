@@ -67,9 +67,17 @@ function stopscanner(){
   scanner = new scannerhead();
 }
 
+function exportblock(){
+  return new Promise(function(resolve, reject){
+    resolve(scanner.block)
+  })
+}
+
+
 
 module.exports = {
   startscanner,
   addblock,
-  stopscanner
+  stopscanner,
+  exportblock
 }

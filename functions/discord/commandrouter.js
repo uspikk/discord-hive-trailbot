@@ -19,6 +19,8 @@ const stophivescanner = require('../hive/blockscanner.js').stopscanner;
 const stopblurtscanner = require('../blurt/blurtmain.js').stopvoter
 const addvotes = require('../hive/enginetrailsystem.js').addvotes
 const votestatus = require('../hive/enginetrailsystem.js').votestatus
+const clearinterval = require('../misc/scannertester.js').clearinterval
+const startinterval = require('../misc/scannertester.js').startintervalfunc
 
 function commandrouter(msg){
   if(msg.channel.id !== config.logchannel){
@@ -73,11 +75,13 @@ function commandrouter(msg){
   if(command === '!startscanners'){
     starthivescanner();
     startblurtscanner();
+    startinterval();
     return;
   }
   if(command === '!stopscanners'){
     stophivescanner();
     stopblurtscanner();
+    clearinterval();
     return;
 
   }
