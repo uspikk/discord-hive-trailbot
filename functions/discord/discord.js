@@ -5,8 +5,10 @@ let boot;
 
 client.on('ready', () => {
   const bootscript = require('../../index.js').bootscript
+  const gettokenvp = require('../hive/hiveenginevpchecker.js').hevpcheck
   console.log(`Logged in as ${client.user.tag}!`);
   bootscript();
+  gettokenvp();
 });
 
 client.on('message', msg => {

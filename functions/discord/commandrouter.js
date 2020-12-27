@@ -21,6 +21,7 @@ const addvotes = require('../hive/enginetrailsystem.js').addvotes
 const votestatus = require('../hive/enginetrailsystem.js').votestatus
 const clearinterval = require('../misc/scannertester.js').clearinterval
 const startinterval = require('../misc/scannertester.js').startintervalfunc
+const hevpcheck = require('../hive/hiveenginevpchecker.js').hevpcheck
 
 function commandrouter(msg){
   if(msg.channel.id !== config.logchannel){
@@ -86,13 +87,25 @@ function commandrouter(msg){
 
   }
   if(command === '!addvotes'){
-    if(args[0] > 0){
+    if(args[0] >= 0 && args.length === 1){
       addvotes(args[0]);
+      return;
+    }
+    if(args[0] >= 0 && args.length === 2){
+      addvotes(args[0], args[1]);
+      return;
+    }
+    else{
+      reply(msg, messages.commandnihu);
       return;
     }
   }
   if(command === '!votestatus'){
     votestatus();
+    return;
+  }
+  if(command === '!vphe'){
+    hevpcheck('status');
     return;
   }
   /*if(command === '!powerup'){}

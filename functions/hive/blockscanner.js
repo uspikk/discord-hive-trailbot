@@ -1,5 +1,6 @@
 let hive = require('@hiveio/hive-js');
 let broadcast = require('./broadcast.js').broadcast;
+let hevpcheck = require('./hiveenginevpchecker.js').hevpcheck
 
 var scanner = new scannerhead();
 
@@ -7,6 +8,7 @@ function scannerhead(){
   this.running = false;
   this.block;
   this.errcount = 0;
+  this.enginevpcheck = 0;
 }
 
 function updateheadblock(){
@@ -27,6 +29,14 @@ function updateheadblock(){
 
 function addblock(){
   scanner.block++;
+  if(scanner.enginevpcheck === 0){
+    scanner.enginevpcheck = scanner.block + 200
+    hevpcheck('votes');
+  }
+  if(scanner.enginevpcheck === scanner.block){
+    scanner.enginevpcheck = scanner.block + 200
+    hevpcheck('votes');
+  }
   getblock();
 }
 

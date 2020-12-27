@@ -4,6 +4,7 @@ const gethiveblock = require('../hive/blockscanner.js').exportblock
 const startblurt = require('../blurt/blurtmain.js').startvoter
 const starthive = require('../hive/blockscanner.js').startscanner
 
+
 const log = require('../discord/discord.js').log
 
 const tester = new scannertester();
@@ -13,7 +14,7 @@ function scannertester(){
   this.hivelastblock;
   this.hiveblock=0;
   this.blurtblock=0;
-  this.interval = 600000;
+  this.interval = 300000;
   this.intervalfunc;
 }
 

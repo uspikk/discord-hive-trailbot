@@ -8,6 +8,7 @@ function replymessageclass(){
   '!addtrail [user] [votes(inf)]: lisab kasutaja vote traili antud arv votedeks; \n'+
   '!cleartrail: puhastab k6ik inimesed trailist \n'+
   '!vp [user, user2]: Näitab kõike vpga seoses \n'+
+  '!vphe'
   '!send [valuuta] [kogus] [kasutaja]: Saadab valitud valuutat \n'+
   '!addvotes [value] \n'+
   '!votestatus \n'+
