@@ -13,7 +13,7 @@
     "@blurtfoundation/blurtjs": "^0.1.1",
     "@hiveio/hive-js": "^0.8.5",
     "axios": "^0.21.1",
-    "dayjs": "^1.9.7",
+    "dayjs": "^1.10.3",
     "discord.js": "^12.4.0",
     "mongodb": "^3.6.3",
     "sscjs": "0.0.8"
