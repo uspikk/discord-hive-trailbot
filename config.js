@@ -12,7 +12,9 @@ let accounts = {
   'enginecuration':'',
   'enginecurationwif':'',
   'blurt':'',
-  'blurtwif':''
+  'blurtwif':'',
+  'estoniatrail':'',
+  'estoniatrailwif':''
 }
 
 let bootswitches = {

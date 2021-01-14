@@ -24,3 +24,10 @@ function bootscript(){
 module.exports = {
   bootscript
 }
+
+/*
+voter check votes before voting to mitigate the same vote error
+
+estonia trail to work with comments
+
+*/

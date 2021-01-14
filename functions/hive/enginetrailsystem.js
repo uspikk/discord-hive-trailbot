@@ -41,48 +41,73 @@ function votestatus(){
 function recievevotes(ops){
   if(ops[1].json_metadata) ops[1].json_metadata = JSON.parse(ops[1].json_metadata);
   if(!ops[1].parent_author && ops[1].json_metadata.tags){
-    const foundweed = ops[1].json_metadata.tags.find(element => element === 'weedcash');
+    for(var i=0;i<ops[1].json_metadata.tags.length;i++){
+      let tag = ops[1].json_metadata.tags[i]
+      if(tag === 'weedcash' || tag === 'weed' || tag === 'cannabis' || tag === 'psilocybin' || tag === 'dmt'){
+        votesystem.voteweed--;
+        buildvote(ops);
+        return;
+      }
+      if(tag === 'stem'){
+        votesystem.votestem--;
+        buildvote(ops);
+        return;
+      }
+      if(tag === 'palnet'){
+        votesystem.votepal--;
+        buildvote(ops);
+        return;
+      }
+      if(tag === 'spt'){
+        votesystem.votesplinter--;
+        buildvote(ops);
+        return;
+      }
+      if(tag === 'leo'){
+        votesystem.voteleo--;
+        buildvote(ops);
+        return;
+      }
+      if(tag === 'battle'){
+        votesystem.votebattle--;
+        buildvote(ops);
+        return;
+      }
+      if(tag === 'neoxian'){
+        votesystem.voteneoxian--;
+        buildvote(ops);
+        return;
+      }
+    }
+    /*
+    const foundweed = ops[1].json_metadata.tags.find(element => element === 'weedcash').catch(err =>{log('err', 'enginetrail.recievevotes', JSON.stringify(err))});
     if(foundweed && votesystem.voteweed > 0){
-      votesystem.voteweed--;
-      buildvote(ops);
-      return;
+
     }
     const foundstem = ops[1].json_metadata.tags.find(element => element === 'stem');
     if(foundstem && votesystem.votestem > 0){
-      votesystem.votestem--;
-      buildvote(ops);
-      return;
+
     }
     const foundleo = ops[1].json_metadata.tags.find(element => element === 'leo');
     if(foundleo && votesystem.voteleo > 0){
-      votesystem.voteleo--;
-      buildvote(ops);
-      return;
+
     }
     const foundpal = ops[1].json_metadata.tags.find(element => element === 'palnet');
     if(foundpal && votesystem.votepal > 0){
-      votesystem.votepal--;
-      buildvote(ops);
-      return;
+
     }
     const foundsplinter = ops[1].json_metadata.tags.find(element => element === 'spt');
     if(foundsplinter && votesystem.votesplinter > 0){
-      votesystem.votesplinter--;
-      buildvote(ops);
-      return;
+
     }
     const foundbattle = ops[1].json_metadata.tags.find(element => element === 'battle');
     if(foundbattle && votesystem.votebattle > 0){
-      votesystem.votebattle--;
-      buildvote(ops);
-      return;
+
     }
     const foundneoxian = ops[1].json_metadata.tags.find(element => element === 'neoxian');
     if(foundneoxian && votesystem.voteneoxian > 0){
-      votesystem.voteneoxian--;
-      buildvote(ops);
-      return;
-    }
+
+    }*/
   }
 }
 
@@ -105,6 +130,7 @@ function broadcastvote(tx){
       operations: [tx]},
     [config.enginecurationwif], (err, result) => {
       if(err){
+        console.log(err)
         log('err', `broadcast:hiveengine`, JSON.stringify(err));
         return;
       }
