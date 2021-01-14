@@ -42,10 +42,11 @@ function processcomments(op){
   if(!op[1].parent_author){
     for(var i=0;i<listclass.followlist.lenth;i++){
       if(op[1].author === listclass.followlist[i]){
-        
+        setTimeout(checkforvotes, 300000, op);
+        return;
       }
     }
-    //checkforvotes(op)
+    return;
   }
 }
 
