@@ -43,37 +43,37 @@ function recievevotes(ops){
   if(!ops[1].parent_author && ops[1].json_metadata.tags){
     for(var i=0;i<ops[1].json_metadata.tags.length;i++){
       let tag = ops[1].json_metadata.tags[i]
-      if(tag === 'weedcash' || tag === 'weed' || tag === 'cannabis' || tag === 'psilocybin' || tag === 'dmt'){
+      if(tag === 'weedcash' || tag === 'weed' || tag === 'cannabis' || tag === 'psilocybin' || tag === 'dmt' && votesystem.voteweed > 0){
         votesystem.voteweed--;
         buildvote(ops);
         return;
       }
-      if(tag === 'stem'){
+      if(tag === 'stem' && votesystem.votestem > 0){
         votesystem.votestem--;
         buildvote(ops);
         return;
       }
-      if(tag === 'palnet'){
+      if(tag === 'palnet' && votesystem.votepal > 0){
         votesystem.votepal--;
         buildvote(ops);
         return;
       }
-      if(tag === 'spt'){
+      if(tag === 'spt' && votesystem.votesplinter > 0){
         votesystem.votesplinter--;
         buildvote(ops);
         return;
       }
-      if(tag === 'leo'){
+      if(tag === 'leo' && votesystem.voteleo > 0){
         votesystem.voteleo--;
         buildvote(ops);
         return;
       }
-      if(tag === 'battle'){
+      if(tag === 'battle' && votesystem.votebattle > 0){
         votesystem.votebattle--;
         buildvote(ops);
         return;
       }
-      if(tag === 'neoxian'){
+      if(tag === 'neoxian' && votesystem.voteneoxian > 0){
         votesystem.voteneoxian--;
         buildvote(ops);
         return;
@@ -130,8 +130,7 @@ function broadcastvote(tx){
       operations: [tx]},
     [config.enginecurationwif], (err, result) => {
       if(err){
-        console.log(err)
-        log('err', `broadcast:hiveengine`, JSON.stringify(err));
+        log('err', `broadcast:hiveengine`, JSON.stringify(err.data.stack[0].format));
         return;
       }
       if(result){

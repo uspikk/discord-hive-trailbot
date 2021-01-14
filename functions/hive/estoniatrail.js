@@ -60,6 +60,7 @@ function checkforvotes(op){
           return;
         }
       }
+      console.log('sending votes')
       let operation =[['vote', {
           "voter": config.enginecuration,
           "author": author,

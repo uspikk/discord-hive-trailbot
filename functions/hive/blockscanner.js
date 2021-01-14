@@ -47,7 +47,7 @@ function getblock(){
   if(scanner.errcount === 10)scanner.running = false;
   hive.api.getBlock(scanner.block, function(err, result) {
     if(err){
-      log('err', `getblock:${scanner.errcount}`, JSON.stringify(err));
+      if(scanner.errcount === 9) log('err', `getblock:${scanner.errcount}`, JSON.stringify(err));
       scanner.errcount++;
       setTimeout(getblock, 1500)
       return;
