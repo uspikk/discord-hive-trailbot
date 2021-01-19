@@ -43,9 +43,11 @@ function recievevotes(ops){
   if(!ops[1].parent_author && ops[1].json_metadata.tags){
     for(var i=0;i<ops[1].json_metadata.tags.length;i++){
       let tag = ops[1].json_metadata.tags[i]
-      if(tag === 'weedcash' || tag === 'weed' || tag === 'cannabis' || tag === 'psilocybin' || tag === 'dmt' && votesystem.voteweed > 0){
-        votesystem.voteweed--;
-        buildvote(ops);
+      if(tag === 'weedcash' || tag === 'weed' || tag === 'cannabis' || tag === 'psilocybin' || tag === 'dmt'){
+        if(votesystem.voteweed > 0){
+          votesystem.voteweed--;
+          buildvote(ops);
+        }
         return;
       }
       if(tag === 'stem' && votesystem.votestem > 0){

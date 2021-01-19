@@ -32,15 +32,18 @@ followbooter.prototype.getfollowlist = function(){
 }
 
 followbooter.prototype.updatefollowlist = function(newlist){
-  this.followlist = newlist;
+  listclass.followlist = newlist;
 }
 
 let listclass = null;
 
 function processcomments(op){
-  if(listclass === null) listclass = new followbooter();
+  if(listclass === null) {
+    listclass = new followbooter();
+    return;
+  }
   if(!op[1].parent_author){
-    for(var i=0;i<listclass.followlist.lenth;i++){
+    for(var i=0;i<listclass.followlist.length;i++){
       if(op[1].author === listclass.followlist[i]){
         setTimeout(checkforvotes, 300000, op);
         return;
