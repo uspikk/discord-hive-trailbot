@@ -132,7 +132,7 @@ function broadcastvote(tx){
       operations: [tx]},
     [config.enginecurationwif], (err, result) => {
       if(err){
-        log('err', `broadcast:hiveengine`, JSON.stringify(err.data.stack[0].format));
+        log('err', `broadcast:hiveengine`, JSON.stringify(err.data));
         return;
       }
       if(result){

@@ -111,7 +111,6 @@ function calculatevotevalues(){
 
 
 
-
 module.exports = {
   startvpcheck
 }

@@ -38,19 +38,27 @@ followbooter.prototype.updatefollowlist = function(newlist){
 let listclass = null;
 
 function processcomments(op){
+  const sendcomment = require('./autovoteifhighvp.js').storecomments
   if(listclass === null) {
     listclass = new followbooter();
     return;
   }
-  if(!op[1].parent_author){
+
     for(var i=0;i<listclass.followlist.length;i++){
       if(op[1].author === listclass.followlist[i]){
-        setTimeout(checkforvotes, 300000, op);
-        return;
+        if(!op[1].parent_author){
+          setTimeout(checkforvotes, 300000, op);
+          return;
+        }
+        if(op[1].parent_author){
+          console.log('sending estonia comment')
+          sendcomment(op);
+          return;
+        }
       }
     }
     return;
-  }
+  
 }
 
 function checkforvotes(op){
@@ -63,7 +71,6 @@ function checkforvotes(op){
           return;
         }
       }
-      console.log('sending votes')
       let operation =[['vote', {
           "voter": config.enginecuration,
           "author": author,
