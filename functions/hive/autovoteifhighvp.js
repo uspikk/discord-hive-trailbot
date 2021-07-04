@@ -2,17 +2,23 @@ const hive = require('@hiveio/hive-js');
 const log = require('../discord/discord.js').log;
 const account = require('../../config.js').accounts.estoniatrail;
 const wif = require('../../config.js').accounts.estoniatrailwif;
+const notify = require('../discord/discord.js').notification
 
 
 const auto = new autovotehighvp();
 
 function autovotehighvp(){
+  this.vp = null;
+  this.intervalfunc;
+  this.intervaltimer = 60000;
   this.manaPrec = 70;
   this.votePrec = 7500;
-}
+  this.notifyPrec = 99;
+}//maybe pull this to config
 
 
 autovotehighvp.prototype.testvp = function(post){
+  if(post){
     let upops = [['vote', {
           "voter": account,
           "author": post[1].parent_author,
@@ -24,6 +30,7 @@ autovotehighvp.prototype.testvp = function(post){
           "permlink": post[1].permlink,
           "weight": auto.votePrec
         }]]
+  }
   hive.api.getAccounts([account], function(err, result) {
     if(err || !result){
       log('err', 'testvp', JSON.stringify(err));
@@ -39,15 +46,32 @@ autovotehighvp.prototype.testvp = function(post){
           currentMana = maxMana;
         }
       const currentManaPerc = currentMana * 100 / maxMana;
-      if(currentManaPerc > auto.manaPrec){
-        setTimeout(upvotepost, 30, upops);
+      if(currentManaPerc > auto.notifyPrec){
+        notify(`@nrg hetkene vote poweri protsent on ${currentManaPerc.toFixed(2)}%`);
+      }
+      if(post){
+        if(currentManaPerc > auto.manaPrec){
+          setTimeout(upvotepost, 300000, upops);
+        }
+      }
+      if(!post){
+        auto.vp = currentManaPerc;
       }
     }
   });
 }
 
+
 function storecomments(post){
  auto.testvp(post);
+}
+
+function startcheckingvp(){
+  auto.intervalfunc = setInterval(auto.testvp, auto.intervaltimer);
+}
+
+function clearintervalfunc(){
+
 }
 
 function upvotepost(upops){

@@ -12,6 +12,7 @@ function replymessageclass(){
   '!send [valuuta] [kogus] [kasutaja]: Saadab valitud valuutat \n'+
   '!addvotes [value] \n'+
   '!votestatus \n'+
+  '!renew \n'+
  /* '!powerup [kogus]: powerupib summa \n'+
   '!listcoin : kuvab kõik coin collectionid \n' +
   '!lisacoin [coini nimi]: lisab coini kollektsiooni \n'+

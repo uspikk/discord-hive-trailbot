@@ -11,6 +11,7 @@ let config = {
 let accounts = {
   'enginecuration':'',
   'enginecurationwif':'',
+  'enginecurationactivewif':'',
   'blurt':'',
   'blurtwif':'',
   'estoniatrail':'',

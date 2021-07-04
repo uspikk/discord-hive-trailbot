@@ -48,9 +48,16 @@ function log(type, where, msg){
   })
 }
 
+function notification(message){
+  //client.channels.cache.get('792348422316883998').guild.members.cache.forEach(member => console.log("===>>>", member.user.username));
+ client.users.cache.get('243939614782521356').send(message);
+ return;
+}
+
 
 module.exports = {
   boot,
   log,
-  reply
+  reply,
+  notification
 }
