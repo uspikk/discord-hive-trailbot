@@ -13,6 +13,7 @@ function replymessageclass(){
   '!addvotes [value] \n'+
   '!votestatus \n'+
   '!renew \n'+
+  '!emptyvoter \n'+
  /* '!powerup [kogus]: powerupib summa \n'+
   '!listcoin : kuvab kõik coin collectionid \n' +
   '!lisacoin [coini nimi]: lisab coini kollektsiooni \n'+

@@ -23,6 +23,8 @@ const clearinterval = require('../misc/scannertester.js').clearinterval
 const startinterval = require('../misc/scannertester.js').startintervalfunc
 const hevpcheck = require('../hive/hiveenginevpchecker.js').hevpcheck
 const gettokenbals = require('../hive/reneworders.js').gettokenbals
+const emptyvoter = require('../hive/emptyvoter.js').gettokenbals
+
 
 function commandrouter(msg){
   if(msg.channel.id !== config.logchannel){
@@ -111,6 +113,10 @@ function commandrouter(msg){
   }
   if(command === '!renew'){
     gettokenbals(0);
+    return;
+  }
+  if(command === '!emptyvoter'){
+    emptyvoter(0);
     return;
   }
   /*if(command === '!powerup'){}

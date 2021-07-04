@@ -7,6 +7,7 @@ const testscans = require('./functions/misc/scannertester.js').startintervalfunc
 
 
 
+
 function bootscript(){
   
   if(bootswitches.startblockscanner){
@@ -30,6 +31,7 @@ voter check votes before voting to mitigate the same vote error
 
 estonia trail to work with comments
 
-notifications for full power+++
+(node:10192) Warning: Accessing non-existent property 'databasetest' of module exports inside circular dependency
+
 
 */

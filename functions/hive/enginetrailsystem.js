@@ -46,38 +46,38 @@ function recievevotes(ops){
       if(tag === 'weedcash' || tag === 'weed' || tag === 'cannabis' || tag === 'psilocybin' || tag === 'dmt'){
         if(votesystem.voteweed > 0){
           votesystem.voteweed--;
-          buildvote(ops);
+          setTimeout(checkvoters, 30000, ops);
         }
         return;
       }
       if(tag === 'stem' && votesystem.votestem > 0){
         votesystem.votestem--;
-        buildvote(ops);
+        setTimeout(checkvoters, 30000, ops);
         return;
       }
       if(tag === 'palnet' && votesystem.votepal > 0){
         votesystem.votepal--;
-        buildvote(ops);
+        setTimeout(checkvoters, 30000, ops);
         return;
       }
       if(tag === 'spt' && votesystem.votesplinter > 0){
         votesystem.votesplinter--;
-        buildvote(ops);
+        setTimeout(checkvoters, 30000, ops);
         return;
       }
       if(tag === 'leo' && votesystem.voteleo > 0){
         votesystem.voteleo--;
-        buildvote(ops);
+        setTimeout(checkvoters, 30000, ops);
         return;
       }
       if(tag === 'battle' && votesystem.votebattle > 0){
         votesystem.votebattle--;
-        buildvote(ops);
+        setTimeout(checkvoters, 30000, ops);
         return;
       }
       if(tag === 'neoxian' && votesystem.voteneoxian > 0){
         votesystem.voteneoxian--;
-        buildvote(ops);
+        setTimeout(checkvoters, 30000, ops);
         return;
       }
     }
@@ -111,6 +111,30 @@ function recievevotes(ops){
 
     }*/
   }
+}
+
+function checkvoters(ops){
+  hive.api.getActiveVotes(ops[1].author, ops[1].permlink, function(err, result) {
+    if(err){
+      buildvote(ops);
+      return;
+    }
+    if(result){
+      if(result.length === 0){
+        buildvote(ops);
+        return;
+      }
+      else{
+        for(var i=0;i<result.length;i++){
+          if(result[i].voter === config.enginecuration){
+            return;
+          }
+        }
+        buildvote(ops);
+        return;
+      }
+    }
+  });
 }
 
 function buildvote(ops){

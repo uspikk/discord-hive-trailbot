@@ -51,7 +51,7 @@ function processcomments(op){
           return;
         }
         if(op[1].parent_author){
-          console.log('sending estonia comment')
+          /// build out only comments to estonia
           sendcomment(op);
           return;
         }
@@ -60,6 +60,7 @@ function processcomments(op){
     return;
   
 }
+
 
 function checkforvotes(op){
   const author = op[1].author;

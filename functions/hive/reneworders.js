@@ -1,8 +1,8 @@
 const SSC = require('sscjs');
 const ssc = new SSC('https://api.hive-engine.com/rpc/');
 const log = require('../discord/discord.js').log;
-const acc = require('../../config.js').accounts.enginecuration
-const wif = require('../../config.js').accounts.enginecurationactivewif
+const acc = require('../../config.js').accounts.estoniatrail
+const wif = require('../../config.js').accounts.estoniatrailactivewif
 const hive = require('@hiveio/hive-js');
 
 let data = new database();
@@ -22,7 +22,7 @@ function database(){
 function gettokenbals(offset){
 	log('log', 'reneworders:gettokenbals', 'Starting renewing orders.');
 	data = new database();
-  ssc.find('tokens','balances',{account:'nrg'},1000, offset, [], (err, result)=>{
+  ssc.find('tokens','balances',{account:acc},1000, offset, [], (err, result)=>{
     if(err){
     	log('err', 'reneworders:gettokenbals', JSON.stringify(err));
     	return;

@@ -15,7 +15,8 @@ let accounts = {
   'blurt':'',
   'blurtwif':'',
   'estoniatrail':'',
-  'estoniatrailwif':''
+  'estoniatrailwif':'',
+  'estoniatrailactivewif':''
 }
 
 let bootswitches = {
