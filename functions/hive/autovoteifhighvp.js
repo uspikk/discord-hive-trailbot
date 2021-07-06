@@ -19,17 +19,7 @@ function autovotehighvp(){
 
 autovotehighvp.prototype.testvp = function(post){
   if(post){
-    let upops = [['vote', {
-          "voter": account,
-          "author": post[1].parent_author,
-          "permlink": post[1].parent_permlink,
-          "weight": auto.votePrec
-        }], ['vote', {
-          "voter": account,
-          "author": post[1].author,
-          "permlink": post[1].permlink,
-          "weight": auto.votePrec
-        }]]
+
   }
   hive.api.getAccounts([account], function(err, result) {
     if(err || !result){
@@ -51,6 +41,17 @@ autovotehighvp.prototype.testvp = function(post){
       }
       if(post){
         if(currentManaPerc > auto.manaPrec){
+          let upops = [['vote', {
+                "voter": account,
+                "author": post[1].parent_author,
+                "permlink": post[1].parent_permlink,
+                "weight": auto.votePrec
+              }], ['vote', {
+                "voter": account,
+                "author": post[1].author,
+                "permlink": post[1].permlink,
+                "weight": auto.votePrec
+              }]]
           setTimeout(upvotepost, 300000, upops);
         }
       }
@@ -84,7 +85,7 @@ function upvotepost(upops){
     return;
   }
   if(result){
-    log('log', 'upvotepost:autovotehighvp', JSON.stringify(result.operations));
+    log('log', 'upvotepost:autovotehighvp', 'Upvoted @' + JSON.stringify(result.operations[0][1].author));
     setTimeout(upvoteparent, 6000, upops);
     return;
   }
@@ -102,7 +103,7 @@ function upvoteparent(upops){
     return;
   }
   if(result){
-    log('log', 'upvoteparent:autovotehighvp', JSON.stringify(result.operations));
+    log('log', 'upvoteparent:autovotehighvp', 'Upvoted @' +JSON.stringify(result.operations[0][1].author));
   }
 });
 }
