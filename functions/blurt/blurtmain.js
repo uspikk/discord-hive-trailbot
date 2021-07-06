@@ -55,7 +55,7 @@ blurtclass.prototype.getblock = function(blockNum){
   const blockfilter = blurtvoter.blockfilter;
   blurt.api.getBlock(blockNum, function(err, result) {
     if(err) {
-      log('err', 'blurtclass.getblock', 'Error getting latest block');
+     // log('err', 'blurtclass.getblock', 'Error getting latest block');
       blurtvoter.errcount++;
       setTimeout(getblock, 2000, blockNum);
       return;
