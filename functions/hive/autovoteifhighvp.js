@@ -18,9 +18,6 @@ function autovotehighvp(){
 
 
 autovotehighvp.prototype.testvp = function(post){
-  if(post){
-
-  }
   hive.api.getAccounts([account], function(err, result) {
     if(err || !result){
       log('err', 'testvp', JSON.stringify(err));
@@ -41,6 +38,7 @@ autovotehighvp.prototype.testvp = function(post){
       }
       if(post){
         if(currentManaPerc > auto.manaPrec){
+          console.log(post)
           let upops = [['vote', {
                 "voter": account,
                 "author": post[1].parent_author,
@@ -81,6 +79,7 @@ function upvotepost(upops){
   operations: [upops[0]]
   }, [wif], (err, result) => {
   if(err){
+    console.log(err)
     log('err', 'upvotepostautohighvp', JSON.stringify(err))
     return;
   }

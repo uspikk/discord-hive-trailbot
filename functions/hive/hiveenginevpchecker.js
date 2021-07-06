@@ -50,7 +50,7 @@ function hevpcheck(type){
   }
   if(type === 'votes'){
     if(leo_vp > 95) addvotes(5, 'leo');
-    if(weed_vp > 95) addvotes(5, 'weed');
+    if(weed_vp > 85) addvotes(15, 'weed');
     if(stem_vp > 95) addvotes(5, 'stem');
     if(pal_vp > 95) addvotes(5, 'pal');
     if(spt_vp > 95) addvotes(5, 'spt');
