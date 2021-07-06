@@ -11,10 +11,12 @@ function blurtclass(){
   blurt.config.set('alternative_api_endpoints', ['https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world']);
 
   this.block = 0;
+  this.vp = 0;
+  this.vpinterval;
   this.errcount = 0;
   this.followlist = [];
   this.getlatestblock();
-
+  this.startvpinterval();
 }
 
 
@@ -45,10 +47,42 @@ blurtclass.prototype.getlatestblock = function (){
   });
 }
 
+blurtclass.prototype.startvpinterval = function(){
+  getvotepower();
+  blurtvoter.vpinterval = setInterval(getvotepower, 600000)
+  return;
+}
+
+function getvotepower(){
+  blurt.api.getAccounts([acc], function(err, result) {
+    if(err){
+      log('err', 'blurtmain:getvotepower', JSON.stringify(err));
+      return;
+    }
+    if(result){
+      let account = result[0];
+      const totalShares = parseFloat(account.vesting_shares) + parseFloat(account.received_vesting_shares) - parseFloat(account.delegated_vesting_shares) - parseFloat(account.vesting_withdraw_rate);
+      const elapsed = Math.floor(Date.now() / 1000) - account.voting_manabar.last_update_time;
+      const maxMana = totalShares * 1000000;
+      let currentMana = parseFloat(account.voting_manabar.current_mana) + elapsed * maxMana / 432000;
+        if(currentMana > maxMana){
+          currentMana = maxMana;
+        }
+      const currentManaPerc = currentMana * 100 / maxMana;
+      if(blurtvoter){
+        blurtvoter.vp = currentManaPerc;
+        return;
+      }
+    }
+  });
+}
+
+
 blurtclass.prototype.getblock = function(blockNum){
   if(blurtvoter.errcount > 10){
     log('err', 'blurtclass.getblock', 'Stopping scanner, too many errors');
     blurtvoter = false;
+    clearInterval(blurtvoter.vpinterval);
     return;
   }
   const getblock = blurtvoter.getblock;
@@ -106,6 +140,19 @@ blurtclass.prototype.blockfilter = function(ops, blockNum){
     for(var j=0;j<ops[i].operations.length;j++){
       op = ops[i].operations[j];
       if(op[0] === 'comment' && op[1].parent_author === ''){
+        if(blurtvoter.vp > 70){
+          let newOp = [
+            'vote',
+            {
+              'voter':acc,
+              'author':op[1].author,
+              'permlink':op[1].permlink,
+              'weight':10000
+            }
+          ]
+          log('log', 'blurtmain:blockfilter', `Voting random\nvp:${blurtvoter.vp}%`)
+          setTimeout(broadcastvote, 300000, newOp);
+        }
         const foundauthor = blurtvoter.followlist.find(element => element === op[1].author);
         if(foundauthor){
           let newOp = [
@@ -175,6 +222,7 @@ function startvoter(){
 }
 
 function stopvoter(){
+ clearInterval(blurtvoter.vpinterval);
  blurtvoter = false
 }
 
