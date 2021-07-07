@@ -1,6 +1,6 @@
 const hive = require('@hiveio/hive-js');
 const log = require('../discord/discord.js').log;
-const account = require('../../config.js').accounts.estoniatrail;
+const voteacc = require('../../config.js').accounts.estoniatrail;
 const wif = require('../../config.js').accounts.estoniatrailwif;
 const notify = require('../discord/discord.js').notification
 
@@ -18,7 +18,7 @@ function autovotehighvp(){
 
 
 autovotehighvp.prototype.testvp = function(post){
-  hive.api.getAccounts([account], function(err, result) {
+  hive.api.getAccounts([voteacc], function(err, result) {
     if(err || !result){
       log('err', 'testvp', JSON.stringify(err));
       return;
@@ -38,14 +38,13 @@ autovotehighvp.prototype.testvp = function(post){
       }
       if(post){
         if(currentManaPerc > auto.manaPrec){
-          console.log(post)
           let upops = [['vote', {
-                "voter": account,
+                "voter": voteacc,
                 "author": post[1].parent_author,
                 "permlink": post[1].parent_permlink,
                 "weight": auto.votePrec
               }], ['vote', {
-                "voter": account,
+                "voter": voteacc,
                 "author": post[1].author,
                 "permlink": post[1].permlink,
                 "weight": auto.votePrec
@@ -79,7 +78,6 @@ function upvotepost(upops){
   operations: [upops[0]]
   }, [wif], (err, result) => {
   if(err){
-    console.log(err)
     log('err', 'upvotepostautohighvp', JSON.stringify(err))
     return;
   }
