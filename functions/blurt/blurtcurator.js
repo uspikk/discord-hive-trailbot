@@ -120,7 +120,7 @@ function calculaterewards(){
     let totalblurt = myvests+delegatedvests;
     let sharePrec = 100*delegatedvests/totalblurt;
     let rewardshare = rewardvests*sharePrec/100;
-    log('log', 'calculaterewards', `Total blurt: ${totalblurt.toFixed(3)} BLURT\nDelegated blurt: ${delegatedvests.toFixed(3)} BLURT\nDelegated %: ${sharePrec.toFixed(2)}\nTotal reward: ${data.reward.toFixed(3)} BLURT\nDelegate reward: ${rewardshare.toFixed(3)} BLURT`)
+    log('log', 'calculaterewards', `Total blurt: ${totalblurt.toFixed(3)} BLURT\nDelegated blurt: ${delegatedvests.toFixed(3)} BLURT\nDelegated %: ${sharePrec.toFixed(2)}\nTotal reward: ${rewardvests.toFixed(3)} BLURT\nDelegate reward: ${rewardshare.toFixed(3)} BLURT`)
   });
 }
 
