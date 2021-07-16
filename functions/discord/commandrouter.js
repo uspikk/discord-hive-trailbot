@@ -24,7 +24,7 @@ const startinterval = require('../misc/scannertester.js').startintervalfunc
 const hevpcheck = require('../hive/hiveenginevpchecker.js').hevpcheck
 const gettokenbals = require('../hive/reneworders.js').gettokenbals
 const emptyvoter = require('../hive/emptyvoter.js').gettokenbals
-
+const calculaterewardsblurt = require('../blurt/blurtcurator.js').calculaterewards
 
 function commandrouter(msg){
   if(msg.channel.id !== config.logchannel){
@@ -117,6 +117,10 @@ function commandrouter(msg){
   }
   if(command === '!emptyvoter'){
     emptyvoter(0);
+    return;
+  }
+  if(command === '!kentzcuration'){
+    calculaterewardsblurt();
     return;
   }
   /*if(command === '!powerup'){}

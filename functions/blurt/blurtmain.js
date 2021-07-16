@@ -95,6 +95,7 @@ blurtclass.prototype.getblock = function(blockNum){
       return;
     }
     if(result){
+      //console.log(result)
       blurtvoter.block = blockNum;
       blurtvoter.errcount = 0;
       blockfilter(result.transactions, blockNum);
