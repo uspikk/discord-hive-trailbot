@@ -85,7 +85,7 @@ function getblock(){
   }
   blurt.api.getOpsInBlock(data.nextCheck, true, function(err, result){///need to test empty blocks
     if(err){
-      log('err', 'blurtcurator:getblock', JSON.stringify(err));
+      //log('err', 'blurtcurator:getblock', JSON.stringify(err));
       setTimeout(getblock, 5000);
       return;
     }
