@@ -27,7 +27,7 @@ function updateheadblock(){
   });
 }
 
-function addblock(){
+function addblock(){///stupid shit
   scanner.block++;
   if(scanner.enginevpcheck === 0){
     scanner.enginevpcheck = scanner.block + 200

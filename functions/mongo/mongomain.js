@@ -1,7 +1,7 @@
 const mongo = require("mongodb").MongoClient
 const log = require('../discord/discord.js').log
 const config = require('../../config.js').config
-const databasetest = require('./mongo.js').databasetest
+//const databasetest = require('./mongo.js').databasetest
 
 function mongodb() {
     this.url = 'mongodb://localhost:27017';

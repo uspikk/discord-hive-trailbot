@@ -17,6 +17,8 @@ let accounts = {
   'estoniatrail':'',
   'estoniatrailwif':'',
   'estoniatrailactivewif':''
+  'steem':'',
+  'steemwif':''
 }
 
 let bootswitches = {

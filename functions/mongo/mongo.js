@@ -37,13 +37,13 @@ function addclose(coin, id, close){
   dbServer.addclose(coin, id, close);
   return;
 }
-
+/*
 function databasetest(){
   dbServer.testfunction().then(function(result){
     console.log(result)
   })
 }
-
+*/
 function getallfromcollection(coll){
   dbServer.getentirecollection(coll).then(function(result){
     calculateall(coll, result);
@@ -59,6 +59,6 @@ module.exports = {
   editbaseentry,
   addentry,
   addclose,
-  databasetest,
+  //databasetest,
   getallfromcollection
 }

@@ -67,7 +67,7 @@ async function savestate(){
 function updateblock(){
   blurt.api.getDynamicGlobalProperties(function(err, result) {
     if(err){
-      log('err', 'blurtcurator:updateblock', JSON.stringify(err));
+      //log('err', 'blurtcurator:updateblock', JSON.stringify(err));
       return;
     }
     if(result){
