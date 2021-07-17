@@ -5,6 +5,7 @@ const adduser = require('./functions/hive/votetrail.js').adduser
 const blurt = require('./functions/blurt/blurtmain.js').startvoter
 const testscans = require('./functions/misc/scannertester.js').startintervalfunc
 const blurtcurator = require('./functions/blurt/blurtcurator.js').start
+const steemscanner = require('./functions/steem/steemblocks.js').start
 const softclose = require('./functions/misc/savesoftclose.js').readlines
 softclose();
 
@@ -12,11 +13,11 @@ softclose();
 
 
 function bootscript(){
-  
   if(bootswitches.startblockscanner){
     blockscanner();
     blurt();
     blurtcurator();
+    steemscanner();
   }
   if(bootswitches.bootinftrailaccs.length > 0){
     for(var i=0;i<bootswitches.bootinftrailaccs.length;i++){
@@ -39,6 +40,10 @@ engine curation rebuild
 engine voter powerdown
 
 auto check vote power % notify
+
+kentz cash out system
+
+kentz testscanner
 
 web front end?
 
