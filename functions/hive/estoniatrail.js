@@ -82,11 +82,6 @@ function checkforvotes(op){
           "author": author,
           "permlink": permlink,
           "weight": 10000
-        }], ['vote', {
-          "voter": 'dreamm',
-          "author": author,
-          "permlink": permlink,
-          "weight": 10000
         }]]
       broadcastvote(operation);
       return;
@@ -98,7 +93,7 @@ function broadcastvote(tx){
   hive.broadcast.send({
       extensions: [],
       operations: tx},
-    [config.enginecurationwif, config.estoniatrailwif, config.estoniatrailwif], (err, result) => {
+    [config.enginecurationwif, config.estoniatrailwif], (err, result) => {
       if(err){
         log('err', `broadcastvote:estoniatrail`, JSON.stringify(err));
         return;
