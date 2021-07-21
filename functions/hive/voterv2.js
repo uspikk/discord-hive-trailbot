@@ -54,7 +54,6 @@ function gettags(step){
     if(result.data.exclude_tags) data.tokens[step].exclude_tags = result.data.exclude_tags.split(',');
     step++;
     gettags(step);
-    return;
   });
 }
 
@@ -104,17 +103,22 @@ function checkvoters(ops){
             return;
           }
         }
-        let operation = ['vote', {
-          "voter": config.enginecuration,
-          "author": ops[1].author,
-          "permlink": ops[1].permlink,
-          "weight": 10000
-        }]
-        setTimeout(broadcastvote, 300000, operation);
+        buildvote(ops);
         return;
       }
     }
   });
+}
+
+function buildvote(ops){
+  let operation = ['vote', {
+    "voter": config.enginecuration,
+    "author": ops[1].author,
+    "permlink": ops[1].permlink,
+    "weight": 10000
+  }]
+  setTimeout(broadcastvote, 300000, operation);
+  return;
 }
 
 
