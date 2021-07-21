@@ -1,6 +1,6 @@
 let hive = require('@hiveio/hive-js');
 let broadcast = require('./broadcast.js').broadcast;
-let hevpcheck = require('./hiveenginevpchecker.js').hevpcheck
+let hevpcheck = require('./voterv2.js').bootfile
 
 var scanner = new scannerhead();
 
@@ -31,11 +31,11 @@ function addblock(){///stupid shit
   scanner.block++;
   if(scanner.enginevpcheck === 0){
     scanner.enginevpcheck = scanner.block + 200
-    hevpcheck('votes');
+    hevpcheck();
   }
   if(scanner.enginevpcheck === scanner.block){
     scanner.enginevpcheck = scanner.block + 200
-    hevpcheck('votes');
+    hevpcheck();
   }
   getblock();
 }

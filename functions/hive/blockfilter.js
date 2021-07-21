@@ -1,4 +1,4 @@
-const enginevoter = require('./enginetrailsystem.js').recievevotes
+const enginevoter = require('./voterv2.js').recievevotes
 const estoniatrail = require('./estoniatrail.js').processcomments
 
 function blockfilter(ops){

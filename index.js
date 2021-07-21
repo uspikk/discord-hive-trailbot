@@ -12,6 +12,7 @@ softclose();
 
 
 
+
 function bootscript(){
   if(bootswitches.startblockscanner){
     blockscanner();
@@ -33,7 +34,7 @@ module.exports = {
 
 /*
 
-steem voting bot
+fix steem voter
 
 engine curation rebuild
 
@@ -45,9 +46,9 @@ kentz cash out system
 
 kentz testscanner
 
-web front end?
+fix renew
 
-(node:10192) Warning: Accessing non-existent property 'databasetest' of module exports inside circular dependency
+web front end -- control linux terminals trough webpage idea
 
-save mechanics for soft close system callback
+
 */
