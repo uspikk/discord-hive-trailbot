@@ -49,7 +49,7 @@ function gettags(step){
     getvps();
     return;
   }
-  if(!data.tokens[step].symbol){\
+  if(!data.tokens[step].symbol){
     console.log('voterv2 gettags stepper fault');
     gettags(step);
     return;
