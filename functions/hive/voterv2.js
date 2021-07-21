@@ -49,6 +49,11 @@ function gettags(step){
     getvps();
     return;
   }
+  if(!data.tokens[step].symbol){\
+    console.log('voterv2 gettags stepper fault');
+    gettags(step);
+    return;
+  }
   axios(`https://scot-api.steem-engine.net/config?token=${data.tokens[step].symbol}`).then((result) => {
     data.tokens[step].tags = result.data.json_metadata_value.split(',');
     if(result.data.exclude_tags) data.tokens[step].exclude_tags = result.data.exclude_tags.split(',');
@@ -134,7 +139,6 @@ function broadcastvote(tx){
       }
       if(result){
         log('log', 'broadcast:hiveengine', JSON.stringify(result.operations));
-        gettags();
         return;
       }
   });
