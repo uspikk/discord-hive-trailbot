@@ -44,7 +44,6 @@ function blockfilter(block){
   for(var i=0;i<block.transactions.length;i++){
     for(var j=0;j<block.transactions[i].operations.length;j++){
       let op = block.transactions[i].operations[j]
-      console.log(op[0], op[1].voter)
       if(op[0] === 'vote' && op[1].voter === 'tipu'){
         console.log('tipu voter')
         upvote(op);
