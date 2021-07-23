@@ -75,6 +75,7 @@ function getvps(){
 }
 
 function recievevotes(ops){
+  if(!data) return;
   if(ops[1].json_metadata) ops[1].json_metadata = JSON.parse(ops[1].json_metadata);
   if(!ops[1].parent_author && ops[1].json_metadata.tags){
     for(var i=0;i<data.tokens.length;i++){
@@ -134,11 +135,11 @@ function broadcastvote(tx){
       operations: [tx]},
     [config.enginecurationwif], (err, result) => {
       if(err){
-        log('err', 'broadcast:hiveengine', 'Unknown error');
+        log('err', 'broadcast:voterv2', 'Unknown error');
         return;
       }
       if(result){
-        log('log', 'broadcast:hiveengine', JSON.stringify(result.operations));
+        log('log', 'broadcast:voterv2', JSON.stringify(result.operations));
         return;
       }
   });
@@ -148,13 +149,3 @@ module.exports = {
 	bootfile,
   recievevotes
 }
-/*
- check what tokens user has
- check all tags for those tokens
- get vote power % for those tokens
- vote for those tokens
-
-
- double vote check
-
-*/

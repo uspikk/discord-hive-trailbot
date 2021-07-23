@@ -24,6 +24,10 @@ function start(){
 
 function getheadblock(){
 	steem.api.getBlock(data.block, function(err, result) {
+    if(!err && !result){
+      setTimeout(getheadblock, 3000);
+      return;
+    }
     if(err){
       setTimeout(getheadblock, 3000);
       return;
@@ -40,7 +44,7 @@ function blockfilter(block){
   for(var i=0;i<block.transactions.length;i++){
     for(var j=0;j<block.transactions[i].operations.length;j++){
       let op = block.transactions[i].operations[j]
-      //console.log(op[0], op[1].voter)
+      console.log(op[0], op[1].voter)
       if(op[0] === 'vote' && op[1].voter === 'tipu'){
         console.log('tipu voter')
         upvote(op);
@@ -60,13 +64,11 @@ function upvote(op){
     operations: [op]},
   [config.steemwif], (err, result) => {
     if(err){
-      console.log(err)
-      //log('err', `broadcast:steemblocks`, JSON.stringify(err));//.data.stack[0].format
+      log('err', `broadcast:steemblocks`, JSON.stringify(err));//.data.stack[0].format
       return;
     }
     if(result){
-      console.log(result)
-      //log('log', 'steemblocks:broadcast', JSON.stringify(result.operations));
+      log('log', 'steemblocks:broadcast', JSON.stringify(result.operations));
       return;
     }
   });
