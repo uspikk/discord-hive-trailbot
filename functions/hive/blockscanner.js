@@ -11,8 +11,13 @@ function scannerhead(){
   this.enginevpcheck = 0;
 }
 
-function updateheadblock(){
+function updateheadblock(block){
   const log = require('../discord/discord.js').log
+  if(block){
+    scanner.block = block;
+    getblock();
+    return;
+  }
   hive.api.getDynamicGlobalProperties(function(err, result) {
     if(err){
       log('err', 'updateheadblock', JSON.stringify(err));
@@ -66,10 +71,10 @@ function getblock(){
   });
 }
 
-function startscanner(){
+function startscanner(block){
   scanner = new scannerhead();
   scanner.running = true;
-  updateheadblock();
+  updateheadblock(block);
   return;
 }
 

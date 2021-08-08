@@ -30,7 +30,7 @@ scannertester.prototype.testscans = function(){
       }
       if(tester.hivelastblock === tester.hiveblock){
         log('err', 'scannertester.testscans', 'Attempting to restart hive scanner...');
-        starthive();
+        starthive(tester.block);
       }
       tester.addoldnewblock();
       return;

@@ -21,7 +21,7 @@ const addvotes = require('../hive/enginetrailsystem.js').addvotes
 const votestatus = require('../hive/enginetrailsystem.js').votestatus
 const clearinterval = require('../misc/scannertester.js').clearinterval
 const startinterval = require('../misc/scannertester.js').startintervalfunc
-const hevpcheck = require('../hive/hiveenginevpchecker.js').hevpcheck
+const hevpcheck = require('../hive/voterv2.js').displayvps
 const gettokenbals = require('../hive/reneworders.js').gettokenbals
 const emptyvoter = require('../hive/emptyvoter.js').gettokenbals
 const calculaterewardsblurt = require('../blurt/blurtcurator.js').calculaterewards
@@ -107,8 +107,9 @@ function commandrouter(msg){
     votestatus();
     return;
   }
-  if(command === '!vphe'){
-    hevpcheck('status');
+  if(command === '!hevp'){
+    hevpcheck();
+    console.log('run')
     return;
   }
   if(command === '!renew'){

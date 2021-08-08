@@ -74,6 +74,14 @@ function getvps(){
   });
 }
 
+function displayvps(){
+  let logmessage = ``
+  for(var i = 0;i<data.tokens.length;i++){
+    logmessage = logmessage + `${data.tokens[i].symbol}:\nStake:${data.tokens[i].stake}\nVp:${data.tokens[i].vp.toFixed(2)}%\n____\n`
+  }
+  log('log', 'displayvps', logmessage)
+}
+
 function recievevotes(ops){
   if(!data) return;
   if(ops[1].json_metadata) ops[1].json_metadata = JSON.parse(ops[1].json_metadata);
@@ -147,5 +155,6 @@ function broadcastvote(tx){
  
 module.exports = {
 	bootfile,
-  recievevotes
+  recievevotes,
+  displayvps
 }
