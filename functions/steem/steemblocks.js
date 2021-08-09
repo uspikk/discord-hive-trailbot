@@ -45,7 +45,6 @@ function blockfilter(block){
     for(var j=0;j<block.transactions[i].operations.length;j++){
       let op = block.transactions[i].operations[j]
       if(op[0] === 'vote' && op[1].voter === 'tipu'){
-        console.log('tipu voter')
         upvote(op);
       }
     }
@@ -57,7 +56,6 @@ function blockfilter(block){
 
 function upvote(op){
   op[1].voter = config.steem
-  console.log(op)
     steem.broadcast.send({
     extensions: [],
     operations: [op]},

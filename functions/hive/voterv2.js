@@ -16,6 +16,7 @@ let data;
 function localstorage(){
   this.tokens = [];
   this.vptreshold = 85;
+  this.permavote = ['splinterlands', 'clove71', 'stever82', 'rentmoney', 'costanza', 'apprentice001', 'mawit07', 'taskmaster4450', 'lbi-token', 'edicted', 'abh12345']
 }
 
 function bootfile(){
@@ -91,9 +92,18 @@ function recievevotes(ops){
         for(var j=0;j<ops[1].json_metadata.tags.length;j++){
           for(var x=0;x<data.tokens[i].tags.length;x++){
             if(data.tokens[i].tags[x] === ops[1].json_metadata.tags[j]){
-              setTimeout(checkvoters, 30000, ops);
+              setTimeout(checkvoters, 3000, ops);
+              return;
             }
           }
+        }
+      }
+    }
+    if(!ops[1].parent_author){
+      for(var i=0;i<data.permavote.length;i++){
+        if(ops[1].author === data.permavote[i]){
+          setTimeout(checkvoters, 3000, ops)
+          return;
         }
       }
     }
