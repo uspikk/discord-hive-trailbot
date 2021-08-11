@@ -16,7 +16,7 @@ let data;
 function localstorage(){
   this.tokens = [];
   this.vptreshold = 85;
-  this.permavote = ['splinterlands', 'clove71', 'stever82', 'rentmoney', 'costanza', 'apprentice001', 'mawit07', 'taskmaster4450', 'lbi-token', 'edicted', 'abh12345']
+  this.permavote = ['splinterlands', 'clove71', 'stever82', 'rentmoney', 'costanza', 'apprentice001', 'mawit07', 'taskmaster4450', 'lbi-token', 'edicted', 'abh12345', 'dalz', 'ashikstd', 'peakmonsters']
 }
 
 function bootfile(){
