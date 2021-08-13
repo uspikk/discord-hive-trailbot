@@ -5,13 +5,14 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "nodemon main.js"
+    "dev": "nodemon main.js",
+    "trade": "nodemon functions/hive/trading.js"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "@blurtfoundation/blurtjs": "^0.1.1",
-    "@hiveio/hive-js": "^0.8.5",
+    "@hiveio/hive-js": "^2.0.4",
     "axios": "^0.21.1",
     "dayjs": "^1.10.3",
     "discord.js": "^12.4.0",
