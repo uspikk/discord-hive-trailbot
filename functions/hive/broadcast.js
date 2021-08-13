@@ -36,7 +36,6 @@ function broadcast(){
     operations: [transaction[0]]},
   [key], (err, result) => {
     if(err){
-      console.log(err)
       log('err', `broadcast:${transaction[1].errors}`, JSON.stringify(err));//.data.stack[0].format
       adderrorqueue(transaction);
       return;

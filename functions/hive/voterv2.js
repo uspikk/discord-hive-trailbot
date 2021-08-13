@@ -153,7 +153,6 @@ function broadcastvote(tx){
       operations: [tx]},
     [config.enginecurationwif], (err, result) => {
       if(err){
-        console.log(err)
         log('err', 'broadcast:voterv2', 'Unknown error');
         return;
       }
