@@ -118,7 +118,7 @@ function getvps(){
   let now = day.utc().unix()
   axios(`https://scot-api.steem-engine.net/@${config.enginecuration}?hive=1`).then((result) => {
     for(i=0;i<data.tokens.length;i++){
-      if(data[i].tokens.comment)continue;
+      if(data.tokens[i].comment) continue;
       let vp = parseInt(result.data[data.tokens[i].symbol].voting_power) / 100;
       let lastvote = day.utc(result.data[data.tokens[i].symbol].last_vote_time).unix();
       let diff = now - lastvote;
