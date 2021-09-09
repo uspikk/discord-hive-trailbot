@@ -23,7 +23,8 @@ function bootfile(){
   data = new localstorage();
   ssc.find('tokens','balances',{account:config.enginecuration},1000, 0, [], (err, result)=>{
     if(err){
-      log('err', 'voterv2:bootfile', 'Error getting account balances');
+      log('err', 'voterv2:bootfile', 'Error getting account balances Timeout:15000');
+      setTimeout(bootfile, 15000)
       return;
     }
     if(result){
@@ -33,16 +34,66 @@ function bootfile(){
           'stake':parseFloat(result[i].stake) + parseFloat(result[i].delegationsIn),
           'tags':[],
           'exclude_tags':[],
-          'vp':0
+          'vp':0,
+          'comment':false,
+          'poolid':null,
+          'voteregendays':null
         }
         if(tokenstat.stake > 0){
           data.tokens.push(tokenstat);
         }
       }
-      gettags(0);
+      checkComment();
       return;
     }
   });
+}
+
+function checkComment(){
+  ssc.find('comments', 'rewardPools', {"active":true}, 1000, 0,[], (err, result)=>{
+    if(err){
+      log('err', 'voterv2:checkComment', 'Error checking comment Timeout:15000');
+      setTimeout(checkComment, 15000)
+      return;
+    }
+    if(result){
+      for(var i=0;i<result.length;i++){
+        for(var j=0;j<data.tokens.length;j++){
+          if(result[i].symbol === data.tokens[j].symbol){
+            data.tokens[j].comment = true;
+            data.tokens[j].poolid = result[i]._id;
+            data.tokens[j].voteregendays = result[i].config.voteRegenerationDays
+          }
+        }
+      }
+    }
+    findcommentvp();
+    return;
+  })
+}
+
+function findcommentvp(){
+  ssc.find('comments', 'votingPower', {"account":`${config.enginecuration}`}, 1000, 0, [], (err, result)=>{
+    if(err){
+      log('err', 'voterv2:findcommentvp', 'Error finding comment vp Timeout:15000');
+      setTimeout(findcommentvp, 15000);
+      return;
+    }
+    if(result){
+      for(var i=0;i<result.length;i++){
+        for(var j=0;j<data.tokens.length;j++){
+          if(result[i].rewardPoolId === data.tokens[j].poolid){
+            let now = Date.now();
+            let vp = result[i].votingPower / 100;
+            let lastvote = result[i].lastVoteTimestamp
+            let diff = now - lastvote;
+            data.tokens[j].vp = vp + ((100/(86400*1000*data.tokens[j].voteregendays)) * diff);
+          }
+        }
+      }
+      gettags(0)
+    }
+  })
 }
 
 function gettags(step){
@@ -67,6 +118,7 @@ function getvps(){
   let now = day.utc().unix()
   axios(`https://scot-api.steem-engine.net/@${config.enginecuration}?hive=1`).then((result) => {
     for(i=0;i<data.tokens.length;i++){
+      if(data.tokens.comment) continue;
       let vp = parseInt(result.data[data.tokens[i].symbol].voting_power) / 100;
       let lastvote = day.utc(result.data[data.tokens[i].symbol].last_vote_time).unix();
       let diff = now - lastvote;
@@ -168,3 +220,22 @@ module.exports = {
   recievevotes,
   displayvps
 }
+
+
+/*
+def engine_everything(contract, table, query, offset):
+    url = 'https://api.hive-engine.com/rpc/contracts'
+    params = {'contract':contract, 'table':table, 'query':query, 'limit':1000, 'offset':offset, 'indexes':[]}
+    j = {'jsonrpc':'2.0', 'id':1, 'method':'find', 'params':params}
+
+    with requests.post(url, json=j) as r:
+        data = r.json()
+        result = data['result']
+        if len(result) == 1000:
+            result += engine_everything(contract, table, query, offset+1000)
+    return result
+
+engine_everything("tokens", "balances", {"account":"gerber", "symbol":"BEE"}, 0)
+# engine_everything("market", "metrics", {"symbol":"BEE"}, 0)
+
+*/

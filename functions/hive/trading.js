@@ -1,5 +1,5 @@
 let sweetspot = 400
-let orders = 80
+let orders = 10
 let money = 100
 let smallestorer = 0.1
 let smallestorderstart = 105
@@ -35,15 +35,27 @@ let collectedmoney = 0
 for(var i=0;i<order.length;i++){
   
   let isquarter = i*100/order.length;
-  order[i].size = 
-  let biteSize = 
-  if(isquarter >= 25){
-    break;
+  let firstquarter = 8
+  if(isquarter < 25){
+    console.log(i)
   }
-
+  if(isquarter > 25 && isquarter < 50){
+    console.log(i)
+  }
+  if(isquarter > 50 && isquarter < 75){
+    console.log(i)
+  }
+  if(isquarter > 75){
+    console.log(i)
+  }
 }
 
 
 //first orders 200 at half
 
-//
+//avg sell price when check
+//if first buy order above avg sell price use avg sell price
+
+kasiino
+guildid
+check lastseenusername
