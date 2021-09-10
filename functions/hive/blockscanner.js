@@ -35,11 +35,11 @@ function updateheadblock(block){
 function addblock(){///stupid shit
   scanner.block++;
   if(scanner.enginevpcheck === 0){
-    scanner.enginevpcheck = scanner.block + 200
+    scanner.enginevpcheck = scanner.block + 800
     hevpcheck();
   }
   if(scanner.enginevpcheck === scanner.block){
-    scanner.enginevpcheck = scanner.block + 200
+    scanner.enginevpcheck = scanner.block + 800
     hevpcheck();
   }
   getblock();
