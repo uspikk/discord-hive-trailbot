@@ -10,7 +10,8 @@ let utc = require('dayjs/plugin/utc')
 day.extend(utc)
 
 
-const ssc = new SSC('https://api2.hive-engine.com/rpc/');
+//const ssc = new SSC('https://api2.hive-engine.com/rpc/');
+const ssc = new SSC('https://api.hive-engine.com/rpc/');
 let data;
 
 function localstorage(){
