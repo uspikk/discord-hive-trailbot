@@ -22,7 +22,7 @@ function gettokenbals(offset){
     if(result){
       for(var i=0;i<result.length;i++){
         if(parseFloat(result[i].balance) !== 0){
-          if(result[i].symbol === 'SWAP.HIVE') continue;
+          if(result[i].symbol === 'SWAP.HIVE' || result[i].symbol === 'TEST.EON') continue;
           data.json.push({
             "contractName" : "market",
             "contractAction" : "sell",
