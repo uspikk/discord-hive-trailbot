@@ -25,6 +25,7 @@ const hevpcheck = require('../hive/voterv2.js').displayvps
 const gettokenbals = require('../hive/reneworders.js').gettokenbals
 const emptyvoter = require('../hive/emptyvoter.js').gettokenbals
 const calculaterewardsblurt = require('../blurt/blurtcurator.js').calculaterewards
+const sellshit = require('../hive/sellshit.js').gettokenbals
 
 function commandrouter(msg){
   if(msg.channel.id !== config.logchannel){
@@ -122,6 +123,10 @@ function commandrouter(msg){
   }
   if(command === '!kentzcuration'){
     calculaterewardsblurt();
+    return;
+  }
+  if(command === '!sellshit'){
+    sellshit(0);
     return;
   }
   /*if(command === '!powerup'){}

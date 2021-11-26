@@ -15,6 +15,7 @@ function replymessageclass(){
   '!renew \n'+
   '!emptyvoter \n'+
   '!kentzcuration \n'+
+  '!sellshit \n'+
  /* '!powerup [kogus]: powerupib summa \n'+
   '!listcoin : kuvab kõik coin collectionid \n' +
   '!lisacoin [coini nimi]: lisab coini kollektsiooni \n'+

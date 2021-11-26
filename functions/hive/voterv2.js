@@ -25,7 +25,7 @@ function bootfile(){
   data = new localstorage();
   ssc.find('tokens','balances',{account:config.enginecuration},1000, 0, [], (err, result)=>{
     if(err){
-      log('err', 'voterv2:bootfile', 'Error getting account balances Timeout:15000');
+      log('err', 'voterv2:bootfile', `${JSON.stringify(err)}Error getting account balances Timeout:15000`);
       setTimeout(bootfile, 15000)
       return;
     }

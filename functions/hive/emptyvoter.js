@@ -8,7 +8,6 @@ function gettokenbals(offset){
   log('log', 'emptyvoter', 'attempting to get token balances');
   ssc.find('tokens','balances',{account:config.enginecuration},1000, offset, [], (err, result)=>{
     if(err){
-      console.log(err)
       log('err', 'emptyvoter:gettokenbals', 'Error getting account balances');
       return;
     }

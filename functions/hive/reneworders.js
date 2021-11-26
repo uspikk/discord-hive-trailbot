@@ -21,7 +21,7 @@ function database(){
 
 function gettokenbals(offset){
 	log('log', 'reneworders:gettokenbals', 'Starting renewing orders.');
-	data = new database();
+  if(offset === 0) data = new database();
   ssc.find('tokens','balances',{account:acc},1000, offset, [], (err, result)=>{
     if(err){
     	log('err', 'reneworders:gettokenbals', JSON.stringify(err));
