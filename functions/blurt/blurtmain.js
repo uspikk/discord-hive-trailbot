@@ -56,6 +56,7 @@ blurtclass.prototype.startvpinterval = function(){
 function getvotepower(){
   blurt.api.getAccounts([acc], function(err, result) {
     if(err){
+      console.log(err)
       log('err', 'blurtmain:getvotepower', JSON.stringify(err));
       return;
     }
