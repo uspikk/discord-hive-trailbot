@@ -4,10 +4,7 @@ const blockscanner = require('./functions/hive/blockscanner.js').startscanner
 const adduser = require('./functions/hive/votetrail.js').adduser
 const blurt = require('./functions/blurt/blurtmain.js').startvoter
 const testscans = require('./functions/misc/scannertester.js').startintervalfunc
-const blurtcurator = require('./functions/blurt/blurtcurator.js').start
 const steemscanner = require('./functions/steem/steemblocks.js').start
-const softclose = require('./functions/misc/savesoftclose.js').readlines
-softclose();
 
 
 
@@ -17,7 +14,6 @@ function bootscript(){
   if(bootswitches.startblockscanner){
     blockscanner();
     blurt();
-    blurtcurator();
     steemscanner();
   }
   if(bootswitches.bootinftrailaccs.length > 0){
@@ -34,13 +30,23 @@ module.exports = {
 
 /*
 
-fix steem voter
+launch parameters
 
-engine curation rebuild
+dec view balance
+
+sellshit script
+
+revised error handling
+
+rebuild steem voting to work with comments base product built up
+
+trading bot
+
+engine curation rebuild{revise vote top authors, only vote on first posts}
 
 engine voter powerdown
 
-auto check vote power % notify
+autovotehighvp rewrite
 
 kentz cash out system
 
@@ -49,6 +55,8 @@ kentz testscanner
 fix renew
 
 web front end -- control linux terminals trough webpage idea
+
+trading bot detect way too high top order
 
 
 */
