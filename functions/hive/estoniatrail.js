@@ -45,7 +45,7 @@ function processcomments(op){
   }
 
     for(var i=0;i<listclass.followlist.length;i++){
-      if(op[1].author === listclass.followlist[i]){
+      if(op[1].author === listclass.followlist[i] && op[1].author !== config.estoniatrail){
         if(!op[1].parent_author){
           setTimeout(checkforvotes, 300000, op);
           return;

@@ -49,7 +49,6 @@ function broadcast(){
         "json": JSON.stringify(data.json)
       }
   ]
-  console.log(wholetx)
   hive.broadcast.send({
     extensions: [],
     operations: [wholetx]}, [wif], (err, result) => {

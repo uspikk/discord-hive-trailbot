@@ -14,6 +14,7 @@ let accounts = {
   'enginecurationactivewif':'',
   'blurt':'',
   'blurtwif':'',
+  'blurtactive':'',
   'estoniatrail':'',
   'estoniatrailwif':'',
   'estoniatrailactivewif':''

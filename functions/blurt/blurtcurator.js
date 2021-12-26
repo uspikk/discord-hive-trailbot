@@ -11,6 +11,7 @@ function datahead(){
   blurt.config.set('chain_id','cd8d90f29ae273abec3eaa7731e25934c63eb654d55080caff2ebb7f5df6381f');
   blurt.config.set('alternative_api_endpoints', ['https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world','https://rpc.blurt.world', 'https://rpc.blurt.world']);
   this.vests = 0;
+  this.liquidblurt = 0;
   this.delegated = 0;
   this.reward = 0;
   this.unclaimedblurt = 0;
@@ -19,22 +20,12 @@ function datahead(){
   this.save = true
 }
 
-function start(){
+function start(option){
  data = new datahead();
- loaddata();
+ loadvests(option);
  return;
 }
 
-async function loaddata(){
-  if(data.save){
-    await fs.readFile(__dirname + '/../../data/blurthead.json', "utf8", (err, item) => {
-      if (err) throw err;
-      item = JSON.parse(item)
-      data.reward = item.reward;
-      loadvests(1);
-    });
-  }
-}
 
 function loadvests(option){
   blurt.api.getAccounts([config.blurt], function(err, result) {
@@ -43,120 +34,80 @@ function loadvests(option){
       return;
     }
     if(result){
-      console.log(result)
+      data.liquidblurt = result[0].balance;
       data.unclaimedvests = result[0].reward_vesting_balance;
       data.unclaimedblurt = result[0].reward_vesting_blurt;
       data.vests = parseFloat(result[0].vesting_shares);
       data.delegated = parseFloat(result[0].received_vesting_shares)
-      if(option){
-        calculaterewards(data);
+        calculaterewards(option);
+    }
+  });
+}
+
+
+function claimrewards(sharereward, sharePrec){
+  if(parseFloat(data.liquidblurt) > parseFloat(sharereward)){
+    blurt.broadcast.claimRewardBalance(
+      config.blurtwif, config.blurt, `${data.unclaimedblurt}`, `${data.unclaimedvests}`,
+        function(err, result) {
+          if(result){
+            log('log', 'blurtcurator:claimrewards', `Successfully claimed ${data.unclaimedblurt}`);
+            sendblurt(sharePrec);
+            return;
+          }
+          if(err){
+            log('err', 'claimrewards', JSON.stringify(err));
+            return;
+          }
       }
+    );
+  }
+  else{
+    log('err', 'blurtcurator:claimrewards', 'Not enough liquid blurt');
+    return;
+  }
+}
+
+
+
+function sendblurt(sharePrec){
+  blurt.broadcast.transfer(config.blurtactive, config.blurt, 'kentzz001', `${data.delegatereward} BLURT`, `Total claimed:${data.unclaimedblurt}, Share precent:${sharePrec}`, function(err, result) {
+    if(result){
+      log('log', 'sendblurt', `Successfully sent ${data.delegatereward} BLURT`);
+      return
+    }
+    if(err){
+      log('err', 'sendblurt', JSON.stringify(err));
+      return;
     }
   });
 }
 
-async function saveunclaimed(){
-  let saveobj = {
-    'reward':data.unclaimedblurt
-  }
-  await fs.writeFile(__dirname + '/../../data/blurthead.json', JSON.stringify(saveobj), function (err) {
-    if (err) throw err;
-  });
-  //claimrewards();
-}
 
-function calculaterewards(){
+function calculaterewards(option){
   blurt.api.getDynamicGlobalProperties(function(err, result) {
+
     if(err && !result){
       log('err', 'blurtcurator:calculaterewards', JSON.stringify(err));
       return;
 
     }
-
-  });
-}
-
-function claimrewards(){
-  console.log(data.unclaimedblurt, data.unclaimedvests)
-  blurt.broadcast.claimRewardBalance(
-    config.blurtwif, config.blurt, `0.000 BLURT`, `${data.unclaimedvests}`,
-      function(err, result) {
-        console.log(err, result);
-    }
-  );
-
-}
-
-
-
-function sendblurt(){
-  blurt.broadcast.transfer(config.blurtactive, config.blurt, 'cosmosdrop', '10870.141 BLURT', 'memo', function(err, result) {
-    console.log(err, result);
-  });
-}
-//10870.145
-/*
-async function loadvests(){
-  await blurt.api.getAccounts([config.blurt], function(err, result) {
-    if(err && !result){
-      log('err', 'blurtcurator:loadvests', JSON.stringify(err));
-      return;
-    }
-    data.vests = parseFloat(result[0].vesting_shares);
-    data.delegated = parseFloat(result[0].received_vesting_shares)
-    data.headInterval = setInterval(updateblock, 10000);
-    getblock();
-  });
-}
-*/
-async function savestate(){
-  if(data.save){
-    let saveobj = {
-      'irrevercible':data.irrevercible,
-      'nextCheck':data.nextCheck,
-      'reward':data.reward
-    }
-    await fs.writeFile(__dirname + '/../../data/blurthead.json', JSON.stringify(saveobj), function (err) {
-      if (err) throw err;
-    });
-  }
-}
-
-
-function calculaterewards(){
-  blurt.api.getDynamicGlobalProperties(function(err, result) {
-    if(err && !result){
-      log('err', 'blurtcurator:calculaterewards', JSON.stringify(err));
-      return;
-
-    }
-    //let myvests = (parseFloat(result.total_vesting_fund_blurt) * data.vests)/parseFloat(result.total_vesting_shares);
     let myvests = data.vests;
-    console.log(data.unclaimedblurt)
     let delegatedvests = parseFloat(data.delegated);
     let rewardvests = parseFloat(data.unclaimedblurt);
     let totalblurt = myvests+delegatedvests;
     let sharePrec = 100*delegatedvests/totalblurt;
-    data.delegatereward = data.unclaimedvests*sharePrec/100;
+    data.delegatereward = (parseFloat(data.unclaimedblurt)*sharePrec/100).toFixed(3)*1;
     log('log', 'calculaterewards', `Total vests: ${totalblurt.toFixed(3)} VESTS\nDelegated vests: ${delegatedvests.toFixed(3)} VESTS\nDelegated %: ${sharePrec.toFixed(2)}\nTotal reward: ${rewardvests.toFixed(3)} BLURT\nDelegate reward: ${data.delegatereward.toFixed(3)} BLURT`)
-    //sendblurt();   works 
-    //claimrewards(); works
+    if(option){
+      claimrewards(data.delegatereward, sharePrec);
+    }
   });
 }
 
 
-function stop(){
-
-}
-
-function stopsave(){
-  console.log('Stopped blurt saving');
-  data.save = false;
-  return;
-}
-
 module.exports = {
   start,
-  stopsave,
+  loadvests,
   calculaterewards
 }

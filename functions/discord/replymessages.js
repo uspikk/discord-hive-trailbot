@@ -14,7 +14,8 @@ function replymessageclass(){
   '!votestatus \n'+
   '!renew \n'+
   '!emptyvoter \n'+
-  '!kentzcuration \n'+
+  '!blurtrewards \n'+
+  '!blurtclaim\n'+
   '!sellshit \n'+
  /* '!powerup [kogus]: powerupib summa \n'+
   '!listcoin : kuvab kõik coin collectionid \n' +
