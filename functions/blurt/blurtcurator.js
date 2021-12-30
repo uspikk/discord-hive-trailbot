@@ -48,7 +48,7 @@ function loadvests(option){
 function claimrewards(sharereward, sharePrec){
   if(parseFloat(data.liquidblurt) > parseFloat(sharereward)){
     blurt.broadcast.claimRewardBalance(
-      config.blurtwif, config.blurt, `${data.unclaimedblurt}`, `${data.unclaimedvests}`,
+      config.blurtwif, config.blurt, `0.000 BLURT`, `${data.unclaimedvests}`,
         function(err, result) {
           if(result){
             log('log', 'blurtcurator:claimrewards', `Successfully claimed ${data.unclaimedblurt}`);
