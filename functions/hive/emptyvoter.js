@@ -22,7 +22,7 @@ function gettokenbals(offset){
               "symbol": result[i].symbol,
               "to": config.estoniatrail,
               "quantity": result[i].balance,
-              "memo": "harvest"
+              "memo": ""
             }
           }
           fulltx.push(txbase);
