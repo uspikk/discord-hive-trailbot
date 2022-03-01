@@ -1,6 +1,7 @@
 let config = {
   'discordtoken':'',
   'discordserver':'',
+  'kentzzchannel':'',
   'logchannel':'',
   'hiveacc':'',
   'postingwif':'',

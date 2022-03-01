@@ -26,13 +26,31 @@ const gettokenbals = require('../hive/reneworders.js').gettokenbals
 const emptyvoter = require('../hive/emptyvoter.js').gettokenbals
 const calculaterewardsblurt = require('../blurt/blurtcurator.js').start
 const sellshit = require('../hive/sellshit.js').gettokenbals
+const kentzzrewards = require('../blurt/blurtcurator.js').kentzzrewards
 
 function commandrouter(msg){
+  const args = msg.content.trim().split(/ +/g);
+  const command = args.shift().toLowerCase();
+  if(msg.channel.id === config.kentzzchannel){
+    if(command === '!help'){
+      reply(msg, "``` !help = 🆘 \n !rewards = 💰 \n !claim = 💸```")
+      return;
+    }
+    if(command === '!rewards'){
+      kentzzrewards().then(function(result){
+        reply(msg, result);
+      })
+      return;
+    }
+    if(command === '!claim'){
+      kentzzrewards('1').then(function(result){
+        reply(msg, result);
+      })
+    }
+  }
   if(msg.channel.id !== config.logchannel){
     return
   }
-  const args = msg.content.trim().split(/ +/g);
-  const command = args.shift().toLowerCase();
   if(command === '!help'){
     reply(msg, messages.helpmessage)
     return;

@@ -1,7 +1,7 @@
 var blurt = require('@blurtfoundation/blurtjs');
 var blurtvoter;
 const log = require('../discord/discord.js').log
-
+const curator = require('./blurtcurator.js').start
 
 
 function blurtclass(){
@@ -221,6 +221,7 @@ blurtclass.prototype.broadcastvote = function(op){
 function startvoter(){
   blurtvoter = false;
   blurtvoter = new blurtclass();
+  curator();
 }
 
 function stopvoter(){
