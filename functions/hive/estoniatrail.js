@@ -39,12 +39,10 @@ let listclass = null;
 
 
 function processcomments(op){
-  const sendcomment = require('./autovoteifhighvp.js').storecomments
   if(listclass === null) {
     listclass = new followbooter();
     return;
   }
-  checkforparentvotes(op)
     for(var i=0;i<listclass.followlist.length;i++){
       if(op[1].author === listclass.followlist[i]){
         if(!op[1].parent_author){ ///kui teinud tavalise posti
@@ -53,7 +51,7 @@ function processcomments(op){
         }
         if(op[1].parent_author){  /// kui teinud commenti
           /// build out only comments to estonia/// revise - whatever that means
-          setTimeout(checkforvotes, 300000, op);
+          setTimeout(checkforparentvotes, 300000, op);
           return;
         }
       }
