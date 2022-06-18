@@ -37,22 +37,23 @@ followbooter.prototype.updatefollowlist = function(newlist){
 
 let listclass = null;
 
+
 function processcomments(op){
   const sendcomment = require('./autovoteifhighvp.js').storecomments
   if(listclass === null) {
     listclass = new followbooter();
     return;
   }
-
+  checkforparentvotes(op)
     for(var i=0;i<listclass.followlist.length;i++){
-      if(op[1].author === listclass.followlist[i] && op[1].author !== config.estoniatrail){
-        if(!op[1].parent_author){
+      if(op[1].author === listclass.followlist[i]){
+        if(!op[1].parent_author){ ///kui teinud tavalise posti
           setTimeout(checkforvotes, 300000, op);
           return;
         }
-        if(op[1].parent_author){
-          /// build out only comments to estonia
-          sendcomment(op);
+        if(op[1].parent_author){  /// kui teinud commenti
+          /// build out only comments to estonia/// revise - whatever that means
+          setTimeout(checkforvotes, 300000, op);
           return;
         }
       }
@@ -61,6 +62,22 @@ function processcomments(op){
   
 }
 
+function checkforparentvotes(op){//not-vote-downvote system
+  const sendcomment = require('./autovoteifhighvp.js').storecomments
+  const author = op[1].parent_athor;
+  const permlink = op[1].parent_permlink;
+  if(author === 'ubg' && author === config.estoniatrail) return;
+  hive.api.getActiveVotes(author, permlink, function(err, result) {
+    if(result){
+      for(var i=0;i<result.length;i++){
+        for(var j=0;j<listclass.followlist.length;j++){
+          if(result[i].voter === listclass.followlist[j] && result[i].rshares < 0) return;
+        }
+      }
+      sendcomment(op);
+    }
+  })
+}
 
 function checkforvotes(op){
   const author = op[1].author;
@@ -68,7 +85,7 @@ function checkforvotes(op){
   hive.api.getActiveVotes(author, permlink, function(err, result) {
     if(result){
       for(var i=0;i<result.length;i++){
-        if(result[i].voter === 'voter' || result[i].voter === 'nrg'){
+        if(result[i].voter === config.enginecuration || result[i].voter === config.estoniatrail){ //voter--nrg
           return;
         }
       }
