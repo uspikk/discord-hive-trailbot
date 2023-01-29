@@ -39,6 +39,7 @@ let listclass = null;
 
 
 function processcomments(op){
+  console.log(op)
   if(listclass === null) {
     listclass = new followbooter();
     return;
@@ -64,7 +65,7 @@ function checkforparentvotes(op){//not-vote-downvote system
   const sendcomment = require('./autovoteifhighvp.js').storecomments
   const author = op[1].parent_athor;
   const permlink = op[1].parent_permlink;
-  if(author === 'ubg' && author === config.estoniatrail) return;
+  if(author === 'ubg' || author === config.estoniatrail) return;
   hive.api.getActiveVotes(author, permlink, function(err, result) {
     if(result){
       for(var i=0;i<result.length;i++){

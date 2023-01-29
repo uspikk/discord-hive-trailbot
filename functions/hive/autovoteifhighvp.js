@@ -43,12 +43,12 @@ autovotehighvp.prototype.testvp = function(post){
                 "author": post[1].parent_author,
                 "permlink": post[1].parent_permlink,
                 "weight": auto.votePrec
-              }], ['vote', {
+              }], /*['vote', {    //////// vote estonians code out
                 "voter": voteacc,
                 "author": post[1].author,
                 "permlink": post[1].permlink,
                 "weight": auto.votePrec
-              }]]
+              }]*/]
           setTimeout(upvotepost, 300000, upops);
         }
       }
@@ -83,7 +83,7 @@ function upvotepost(upops){
   }
   if(result){
     log('log', 'upvotepost:autovotehighvp', 'Upvoted @' + JSON.stringify(result.operations[0][1].author));
-    setTimeout(upvoteparent, 6000, upops);
+    //setTimeout(upvoteparent, 6000, upops); ///estonians coded out
     return;
   }
 });
