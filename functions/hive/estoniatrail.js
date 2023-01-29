@@ -39,7 +39,6 @@ let listclass = null;
 
 
 function processcomments(op){
-  console.log(op)
   if(listclass === null) {
     listclass = new followbooter();
     return;
