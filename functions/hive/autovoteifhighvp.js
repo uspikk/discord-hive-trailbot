@@ -13,7 +13,7 @@ function autovotehighvp(){
   this.intervaltimer = 60000;
   this.manaPrec = 70;
   this.votePrec = 7500;
-  this.notifyPrec = 99;
+  this.notifyPrec = 90;
 }//maybe pull this to config
 
 
