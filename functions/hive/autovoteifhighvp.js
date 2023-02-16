@@ -14,6 +14,7 @@ function autovotehighvp(){
   this.manaPrec = 70;
   this.votePrec = 7500;
   this.notifyPrec = 90;
+  this.blocklist = ['leothreads'];
 }//maybe pull this to config
 
 
@@ -49,6 +50,11 @@ autovotehighvp.prototype.testvp = function(post){
                 "permlink": post[1].permlink,
                 "weight": auto.votePrec
               }]*/]
+            for(var i=0;i<auto.blocklist.length;i++){
+              if(upops[0][1].author === auto.blocklist[i]){
+                return;
+              }
+            }
           setTimeout(upvotepost, 300000, upops);
         }
       }
