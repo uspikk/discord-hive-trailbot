@@ -120,7 +120,13 @@ function broadcastvote(tx){
   });
 }
 
+  
+const exportfollowers = new Promise(function(resolve, reject){
+  if(listclass.followlist.length > 0)resolve(listclass.followlist);
+})
+
 module.exports = {
-  processcomments
+  processcomments,
+  exportfollowers
 }
 

@@ -197,8 +197,14 @@ function sortshort(symbol, orders){
   return;
 }
 
+function renewtimer(){
+	gettokenbals(0);
+	setTimeout(renewtimer, 86400000);
+}
+
 
 
 module.exports = {
-	gettokenbals
+	gettokenbals,
+	renewtimer
 }

@@ -5,6 +5,7 @@ const adduser = require('./functions/hive/votetrail.js').adduser
 const blurt = require('./functions/blurt/blurtmain.js').startvoter
 const testscans = require('./functions/misc/scannertester.js').startintervalfunc
 const steemscanner = require('./functions/steem/steemblocks.js').start
+const reneworders = require('./functions/hive/reneworders').renewtimer
 
 
 
@@ -22,6 +23,7 @@ function bootscript(){
     }
   }
   setTimeout(testscans, 10000)
+  setTimeout(reneworders, 100000)
 }
 
 module.exports = {
@@ -34,8 +36,6 @@ launch parameters
 
 dec view balance
 
-sellshit script
-
 revised error handling
 
 rebuild steem voting to work with comments base product built up
@@ -46,9 +46,7 @@ engine curation rebuild{revise vote top authors, only vote on first posts}
 
 engine voter powerdown
 
-autovotehighvp rewrite
-
-kentz cash out system
+autovotehighvp rewrite+
 
 kentz testscanner
 
@@ -57,6 +55,8 @@ fix renew
 web front end -- control linux terminals trough webpage idea
 
 trading bot detect way too high top order
+
+renew orders see if can retrieve multiple coins with single call
 
 
 */
