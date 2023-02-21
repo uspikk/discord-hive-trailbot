@@ -6,6 +6,7 @@ function followbooter(){
   this.followlist = [];
   this.cooldown = [];
   this.getfollowlist();
+  this.exportfollowers = null
 }
 
 followbooter.prototype.getfollowlist = function(){
@@ -57,7 +58,6 @@ function processcomments(op){
       }
     }
     return;
-  
 }
 
 function checkforparentvotes(op){//not-vote-downvote system
@@ -120,13 +120,10 @@ function broadcastvote(tx){
   });
 }
 
-  
-const exportfollowers = new Promise(function(resolve, reject){
-  if(listclass.followlist.length > 0)resolve(listclass.followlist);
-})
+
+
 
 module.exports = {
-  processcomments,
-  exportfollowers
+  processcomments
 }
 

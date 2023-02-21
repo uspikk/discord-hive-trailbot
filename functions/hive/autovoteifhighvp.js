@@ -15,7 +15,7 @@ function autovotehighvp(){
   this.manaPrec = 70;
   this.votePrec = 7500;
   this.notifyPrec = 90;
-  this.blocklist = ['leothreads', 'nrg', 'ubg'];
+  this.blocklist = ['leothreads', 'nrg', 'ubg', 'trumpikasleo'];
 }//maybe pull this to config
 
 
@@ -56,14 +56,6 @@ autovotehighvp.prototype.testvp = function(post){
                 return;
               }
             }
-            followlist.then(function(followlist){ //not vote on self comments
-              for(var i=0;i<followlist.length;i++){
-                if(upops[0][1].author === followlist[i]){
-                  return;
-                }
-                if(i === followlist.length - 1)log('log', 'estoniatrail:update:remove', `${followlist.length} no match found`); //remove if works
-              }
-            })
           setTimeout(upvotepost, 300000, upops);
         }
       }
