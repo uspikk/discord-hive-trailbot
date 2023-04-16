@@ -12,6 +12,7 @@ function blockfilter(ops){
           if(!ops[i].operations[j+1][1].allow_curation_rewards){
               continue;
           }
+        }
         enginevoter(op);
         estoniatrail(op);
         continue;
