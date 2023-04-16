@@ -8,6 +8,10 @@ function blockfilter(ops){
     for(var j=0;j<ops[i].operations.length;j++){
       let op = ops[i].operations[j];
       if(op[0] === 'comment'){
+        if(ops[i].operations[j+1]){ ///check if allow curation rewards
+          if(!ops[i].operations[j+1][1].allow_curation_rewards){
+              continue;
+          }
         enginevoter(op);
         estoniatrail(op);
         continue;
