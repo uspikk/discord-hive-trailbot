@@ -11,7 +11,6 @@ function blockfilter(ops){
         if(ops[i].operations[j+1]){ ///check if allow curation rewards
           if(ops[i].operations[j+1][0] === 'comment_options'){
               if(!ops[i].operations[j+1][1].allow_curation_rewards){
-                  console.log('pass')
                   continue;
               }
           }

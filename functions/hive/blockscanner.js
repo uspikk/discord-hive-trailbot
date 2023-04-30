@@ -7,6 +7,7 @@ var scanner = new scannerhead();
 function scannerhead(){
   this.running = false;
   this.block;
+  this.checkvp = 0;
   this.errcount = 0;
   this.enginevpcheck = 0;
 }
@@ -33,7 +34,13 @@ function updateheadblock(block){
 }
 
 function addblock(){///stupid shit
+  const checkvp = require('./autovoteifhighvp.js').storecomments
   scanner.block++;
+  scanner.checkvp++;//checks vp regurally if less traffic to avoid full hp
+  if(scanner.checkvp === 600){
+    scanner.checkvp = 0;
+    checkvp();
+  }
   if(scanner.enginevpcheck === 0){
     scanner.enginevpcheck = scanner.block + 800
     hevpcheck();
