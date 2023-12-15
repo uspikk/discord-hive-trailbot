@@ -7,7 +7,7 @@ var scanner = new scannerhead();
 function scannerhead(){
   this.running = false;
   this.block;
-  this.checkvp = 0;
+  this.checkvp = 599;
   this.errcount = 0;
   this.enginevpcheck = 0;
 }

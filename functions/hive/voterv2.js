@@ -11,14 +11,14 @@ day.extend(utc)
 
 
 //const ssc = new SSC('https://api2.hive-engine.com/rpc/');
-const ssc = new SSC('https://api.hive-engine.com/rpc/');
+const ssc = new SSC('https://engine.deathwing.me');
 let data;
 
 function localstorage(){
   this.tokens = [];
   this.vptreshold = 85;
   this.permavote = ['splinterlands', 'clove71', 'stever82', 'rentmoney', 'costanza', 'apprentice001', 'mawit07', 'taskmaster4450', 'lbi-token', 'edicted', 'abh12345', 'dalz', 'ashikstd', 'peakmonsters', 'jacekw', 'azircon', 'revisesociology']
-  this.loading = false;
+  this.running = true;
 }
 
 function bootfile(){
@@ -26,7 +26,6 @@ function bootfile(){
   ssc.find('tokens','balances',{account:config.enginecuration},1000, 0, [], (err, result)=>{
     if(err){
       log('err', 'voterv2:bootfile', `${JSON.stringify(err)}Error getting account balances Timeout:15000`);
-      setTimeout(bootfile, 15000)
       return;
     }
     if(result){
@@ -45,7 +44,7 @@ function bootfile(){
           data.tokens.push(tokenstat);
         }
       }
-      checkComment();
+      setTimeout(checkComment, 60000)
       return;
     }
   });
@@ -55,7 +54,6 @@ function checkComment(){
   ssc.find('comments', 'rewardPools', {"active":true}, 1000, 0,[], (err, result)=>{
     if(err){
       log('err', 'voterv2:checkComment', 'Error checking comment Timeout:15000');
-      setTimeout(checkComment, 15000)
       return;
     }
     if(result){
@@ -69,7 +67,7 @@ function checkComment(){
         }
       }
     }
-    findcommentvp();
+    setTimeout(findcommentvp, 60000);
     return;
   })
 }
@@ -78,7 +76,7 @@ function findcommentvp(){
   ssc.find('comments', 'votingPower', {"account":`${config.enginecuration}`}, 1000, 0, [], (err, result)=>{
     if(err){
       log('err', 'voterv2:findcommentvp', 'Error finding comment vp Timeout:15000');
-      setTimeout(findcommentvp, 15000);
+      
       return;
     }
     if(result){

@@ -67,7 +67,7 @@ autovotehighvp.prototype.testvp = function(post){
 }
 
 
-function storecomments(post){
+function storecomments(post){//clock set to blockscanner
  auto.testvp(post);
 }
 

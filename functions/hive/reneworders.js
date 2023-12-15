@@ -1,5 +1,5 @@
 const SSC = require('sscjs');
-const ssc = new SSC('https://api.hive-engine.com/rpc/');
+const ssc = new SSC('https://engine.deathwing.me');
 const log = require('../discord/discord.js').log;
 const acc = require('../../config.js').accounts.estoniatrail
 const wif = require('../../config.js').accounts.estoniatrailactivewif
@@ -107,7 +107,7 @@ function renewlong(symbol){
   ssc.find('market','buyBook',{symbol:symbol, account:acc},1000, 0, [], (err, result)=>{
     if(err){
     	log('err', 'renewlong', JSON.stringify(err.message)+ `\n ${data.step} of ${data.coinlist.length} Steps \n txcount:${data.txarray.length}`);
-    	setTimeout(renewlong, 15000, symbol);
+    	setTimeout(renewlong, 120000, symbol);
     	return;
     }
     if(result){
@@ -153,7 +153,7 @@ function renewshort(symbol){
   ssc.find('market','sellBook',{symbol:symbol, account:acc},1000, 0, [], (err, result)=>{
     if(err){
     	log('err', 'renewshort', JSON.stringify(err.message)+ `\n ${data.step} of ${data.coinlist.length} Steps \n txcount:${data.txarray.length}`);
-    	setTimeout(renewshort, 15000, symbol);
+    	setTimeout(renewshort, 120000, symbol);
     	return;
     }
     if(result){
