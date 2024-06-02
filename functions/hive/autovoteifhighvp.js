@@ -15,7 +15,14 @@ function autovotehighvp(){
   this.manaPrec = 70;
   this.votePrec = 7500;
   this.notifyPrec = 90;
-  this.blocklist = ['leothreads', 'nrg', 'ubg', 'trumpikasleo'];
+  this.blocklist = ['leothreads', 'nrg', 'ubg', 'trumpikasleo', 'krish.kumar',
+  'astha.singh',
+  'astha03',
+  'bunny3214',
+  'repayme4568',
+  'yellow74',
+  'milaan',
+  'edith-4angelseu', ];
 }//maybe pull this to config
 
 
